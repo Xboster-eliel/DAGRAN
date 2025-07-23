@@ -20,16 +20,8 @@ def add_respuesta(info):
 import mejorar_imagenes as mi_funcion_1
 
 # Procesar cada logo
-img_unal = mi_funcion_1.process_image(
-    "Logo Unal.png",
-    scale_factor=1.5,
-    contrast=1.3,
-    brightness=1.2,
-    color=1.4,
-    sharpness=2.0
-)
-img_dagram = mi_funcion_1.process_image(
-    "Logo Dagram.png",
+img_logos = mi_funcion_1.process_image(
+    "Logos.png",
     scale_factor=1.5,
     contrast=1.3,
     brightness=1.2,
@@ -55,19 +47,19 @@ variables = [
         "👪 Ingreso promedio por hogar",
         "ingreso_hogar",
         "❗ Recuerda dar enter para actualizar tu respuesta.",
-        "Valor medio de los ingresos mensuales (o trimestrales) de los hogares, incluyendo todas las fuentes de ingreso."  # basada en definición del INEGI :contentReference[oaicite:1]{index=1}
+        "Valor medio de los ingresos mensuales de los hogares, incluyendo todas las fuentes de ingreso."  # basada en definición del INEGI :contentReference[oaicite:1]{index=1}
     ),
     (
         "📉 Tasa de desempleo",
         "desempleo",
         "❗ Recuerda dar enter para actualizar tu respuesta.",
-        "Porcentaje de personas en edad de trabajar, sin empleo, disponibles y buscando activamente trabajo."  # :contentReference[oaicite:2]{index=2}
+        "Porcentaje de personas en edad de trabajar que buscan empleo y no lo consiguen."  # :contentReference[oaicite:2]{index=2}
     ),
     (
         "📈 Tasa de subempleo",
         "subempleo",
         "❗ Recuerda dar enter para actualizar tu respuesta.",
-        "Porcentaje de trabajadores ocupados que desean y buscan trabajar más horas o en empleos acordes con su calificación."  # :contentReference[oaicite:3]{index=3}
+        "Proporción de trabajadores ocupados que desean y buscan mejorar sus condiciones laborales."  # :contentReference[oaicite:3]{index=3}
     ),
     (
         "🧒👵♿ Población con menor capacidad de respuesta",
@@ -79,25 +71,25 @@ variables = [
         "🏛️ Apoyo institucional",
         "apoyo_inst",
         "❗ Recuerda dar enter para actualizar tu respuesta.",
-        "Presencia y funcionamiento de entidades públicas y planes municipales para la gestión del riesgo."  # asumida de contexto institucional
+        "Presencia y funcionamiento de entidades y planes municipales para la gestión del riesgo (bomberos, Cruz Roja, entre otros)."  # asumida de contexto institucional
     ),
     (
         "🤝 Número de organizaciones comunitarias",
         "num_org_comunitarias",
         "❗ Recuerda dar enter para actualizar tu respuesta.",
-        "Cantidad de agrupaciones locales que promueven participación ciudadana y autogestión."  # :contentReference[oaicite:4]{index=4}
+        "Cantidad de agrupaciones sociales en el municipio que reflejan el nivel de cohesión, participación ciudadana y capacidad de autogestión en diversos asuntos."  # :contentReference[oaicite:4]{index=4}
     ),
     (
         "🕊️ Territorio PDET",
         "territorio_pdet",
         "❗ Recuerda dar enter para actualizar tu respuesta.",
-        "Municipios prioritarios del posconflicto con condiciones de exclusión y pobreza, objetivo de planes integrales (PDET)."  # :contentReference[oaicite:5]{index=5}
+        "Municipios priorizados por el posconflicto debido a condiciones históricas de exclusión y pobreza estructural."  # :contentReference[oaicite:5]{index=5}
     ),
     (
         "🚿⚡🚽 Porcentaje de hogares sin servicios básicos",
         "hogares_sin_servicios",
         "❗ Recuerda dar enter para actualizar tu respuesta.",
-        "Proporción de viviendas que carecen de agua entubada, drenaje, energía eléctrica o recolección de residuos."  # :contentReference[oaicite:6]{index=6}
+        "Proporción de viviendas que carecen de energía, gas o recolección de residuos."  # :contentReference[oaicite:6]{index=6}
     ),
     (
         "🏙️ Densidad de viviendas",
@@ -109,13 +101,13 @@ variables = [
         "👥 Densidad poblacional",
         "densidad_poblacional",
         "❗ Recuerda dar enter para actualizar tu respuesta.",
-        "Número promedio de habitantes por kilómetro cuadrado en el municipio."
+        "Número de viviendas construidas por kilómetro cuadrado, indicador que permite conocer la concentración de infraestructura habitacional en el territorio."
     ),
     (
         "🛣️ Vías",
         "vias",
         "❗ Recuerda dar enter para actualizar tu respuesta.",
-        "Condiciones de conectividad vial, clave para evacuación y atención en emergencias."
+        "Condiciones de conectividad vial del municipio, claves para evacuación y atención en emergencias."
     ),
 ]
 
@@ -128,20 +120,12 @@ def main():
     # TÍTULO DEL FORMULARIO
     # 1) Configuro la página en ancho completo
     st.set_page_config(layout="wide")
-
-    # 2) Defino dos columnas con proporción 2:3
-    col_unal, col_dagram = st.columns([2, 3], gap="small")
-
-    # 3) Pinto cada imagen usando todo el ancho de su columna
-    with col_unal:
-        st.image(img_unal, use_container_width=True)
-
-    with col_dagram:
-        st.image(img_dagram, use_container_width=True)
+    
+    st.image(img_logos, use_container_width=True)
 
     # INSTRUCCIONES GENERALES
     st.title(
-            """Ejercicio De Priorización De Variables Por Expertos Como Aporte A La Construcción Del índice De Vulnerabilidad Socioeconómica Ante Inundaciones"""
+            """Ejercicio de priorización de variables por expertos como aporte a la construcción del Índice de Vulnerabilidad Socioeconómica ante inundaciones."""
             )
     st.markdown(
     """
@@ -183,7 +167,7 @@ def main():
     </style>
     
     <!-- Aquí comienza la Tabla HTML con la clase center-->
-    <table class="center" style="width:60%; border-collapse: collapse;">
+    <table class="center" style="width:40%; border-collapse: collapse;">
       <thead>
         <tr>
           <th>Nombre de la variable</th>
@@ -220,61 +204,122 @@ def main():
 
         # DIVISIÓN ENTRE SECCIONES
         st.markdown("---")
-        st.markdown("### ✍ **Evaluación de variables:**")
-        st.markdown("""
-        <style>
-        .titulo-aviso {
-            color: #e03131;
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .campo-obligatorio {
-            color: #f59f00;
-            font-size: 14px;
-            margin-bottom: 2px;
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-        .restriccion {
-            color: #e8590c;
-            font-size: 14px;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-        .titulo-lista {
-            margin-top: 12px;
-            font-size: 15px;
-            font-weight: 500;
-            color: #dee2e6;
-        }
-        ul.lista-valores {
-            margin-left: 10px;
-            margin-top: 3px;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-        li.alta { color: #e03131; font-weight: bold;}
-        li.media { color: #f59f00; font-weight: bold;}
-        li.baja { color: #228be6; font-weight: bold;}
-        </style>
+        columa_1, columna_2 = st.columns([2, 3], gap="small")
+        def mostrar_aviso():
+          st.markdown("### ✍ **Lineamientos para el diligenciamiento del formuluario:**")
+          st.markdown("""
+          <style>
+          .titulo-aviso {
+              color: #e03131;
+              font-size: 22px;
+              font-weight: bold;
+              margin-bottom: 6px;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+          }
+          .campo-obligatorio {
+              color: #f59f00;
+              font-size: 14px;
+              margin-bottom: 2px;
+              display: flex;
+              align-items: center;
+              gap: 7px;
+          }
+          .restriccion {
+              color: #e8590c;
+              font-size: 14px;
+              margin-bottom: 4px;
+              display: flex;
+              align-items: center;
+              gap: 7px;
+          }
+          .titulo-lista {
+              margin-top: 12px;
+              font-size: 15px;
+              font-weight: 500;
+              color: #dee2e6;
+          }
+          ul.lista-valores {
+              margin-left: 10px;
+              margin-top: 3px;
+              margin-bottom: 10px;
+              font-size: 14px;
+          }
+          li.alta { color: #e03131; font-weight: bold;}
+          li.media { color: #f59f00; font-weight: bold;}
+          li.baja { color: #228be6; font-weight: bold;}
+          </style>
 
-        <div class='titulo-aviso'>🚨 <span>Recuerda:</span></div>
-        <div class='campo-obligatorio'>⚠️ Todos los campos son obligatorios.</div>
-        <div class='restriccion'>⚠️ No puedes exceder los límites de asignación de valores.</div>
-        <div class='titulo-lista'>Debes asignar exactamente:</div>
-        <ul class='lista-valores'>
-        <li class='alta'>🔴 4 variables con importancia Alta <span style='font-weight:normal;'>(valor = 3)</span></li>
-        <li class='media'>🟡 5 variables con importancia Media <span style='font-weight:normal;'>(valor = 2)</span></li>
-        <li class='baja'>🔵 4 variables con importancia Baja <span style='font-weight:normal;'>(valor = 1)</span></li>
-        </ul>
-        """, unsafe_allow_html=True)
+          <div class='titulo-aviso'>🚨 <span>Recuerda:</span></div>
+          <div class='campo-obligatorio'>⚠️ Todos los campos son obligatorios.</div>
+          <div class='restriccion'>⚠️ No puedes exceder los límites de asignación de valores.</div>
+          <div class='titulo-lista'>Debes asignar exactamente:</div>
+          <ul class='lista-valores'>
+          <li class='alta'>🔴 4 variables con importancia Alta <span style='font-weight:normal;'>(valor = 3)</span></li>
+          <li class='media'>🟡 5 variables con importancia Media <span style='font-weight:normal;'>(valor = 2)</span></li>
+          <li class='baja'>🔵 4 variables con importancia Baja <span style='font-weight:normal;'>(valor = 1)</span></li>
+          </ul>
+          """, unsafe_allow_html=True)
+
+        def lineamientos_formulario():
+            st.markdown("""
+            <style>
+                .info-box {
+                    background-color: #1e3a8a;
+                    color: white;
+                    border-radius: 8px;
+                    padding: 15px;
+                    margin-bottom: 20px;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                }
+                .info-box h3 {
+                    color: #ffdd57;
+                    margin-bottom: 12px;
+                }
+                .info-box ul {
+                    margin-left: 15px;
+                }
+                .info-box li {
+                    margin-bottom: 8px;
+                }
+                .info-box li span {
+                    font-weight: bold;
+                    color: #ffdd57;
+                }
+            </style>
+
+            <div class="info-box">
+                <h3>📌 Aspectos importantes para diligenciar el formulario:</h3>
+                <ul>
+                    <li>
+                        Cada casilla para asignar la importancia de cada variable contiene información sobre la variable para facilitar su comprensión.
+                    </li>
+                    <li>
+                        Por defecto, todas las variables tienen asignado el valor <span>1</span>. Para cambiarlo, puede:
+                        <ul>
+                            <li>Usar los botones <span>(+)</span> y <span>(-)</span> del recuadro.</li>
+                            <li>Digitar directamente el valor deseado.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Para guardar y validar su respuesta:
+                        <ul>
+                            <li>Presione la tecla <span>Enter</span> después de ingresar el valor en cada casilla.</li>
+                            <li>O haga clic en el botón <span>"Enviar respuestas"</span> al finalizar todo el formulario.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
+        
+
+        # 3. Llama a la función en ambas columnas
+        with columa_1:
+            mostrar_aviso()
+
+        with columna_2:
+            lineamientos_formulario()
         
         # INPUTS PARA LAS VARIABLES
         respuestas = []
