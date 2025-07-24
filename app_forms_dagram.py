@@ -206,7 +206,7 @@ def main():
         st.markdown("---")
         columa_1, columna_2 = st.columns([2, 3], gap="small")
         def mostrar_aviso():
-          st.markdown("### ✍ **Lineamientos para el diligenciamiento del formuluario:**")
+          st.markdown("### ✍ **Lineamientos para el diligenciamiento del formulario:**")
           st.markdown("""
           <style>
           .titulo-aviso {
