@@ -21,7 +21,7 @@ import mejorar_imagenes as mi_funcion_1
 
 # Procesar cada logo
 img_logos = mi_funcion_1.process_image(
-    "Logos.png",
+    "Logos 2.png",
     scale_factor=1.5,
     contrast=1.3,
     brightness=1.2,
@@ -206,7 +206,7 @@ def main():
         st.markdown("---")
         columa_1, columna_2 = st.columns([2, 3], gap="small")
         def mostrar_aviso():
-          st.markdown("### ✍ **Lineamientos para el diligenciamiento del formulario:**")
+          st.markdown("### ✍ **Lineamientos para el diligenciamiento del formuluario:**")
           st.markdown("""
           <style>
           .titulo-aviso {
@@ -369,32 +369,51 @@ def main():
                 st.warning(f"🟡 Máximo alcanzado: solo 5 variables pueden tener importancia Media (valor = 2).")
             if valor == 1 and respuestas.count(1) > 4:
                 st.warning(f"🔵 Máximo alcanzado: solo 4 variables pueden tener importancia Baja (valor = 1).")
-                
+        
+        # --- PREGUNTA ABIERTA (después de Vías) ---
+        st.markdown("---")
+        st.markdown("### 🌊 Inundaciones periódicas en quebradas")
+        quebradas = st.text_area(
+            "¿Cuáles de las quebradas de su municipio (y en qué sector) presentan inundaciones periódicas?",
+            key="quebradas_inundaciones",
+            placeholder="Ej.: Quebrada La Loca – barrio Centro; Quebrada Santa Rita – vereda El Jardín.",
+            help="Especifica nombre de la(s) quebrada(s) y el sector/barrio o vereda donde se inundan con frecuencia.",
+            height=120
+        )
+        
         submit = st.form_submit_button("Enviar respuestas")
 
 
     if submit:
         n3 = respuestas.count(3); n2 = respuestas.count(2); n1 = respuestas.count(1)
-        if not (nombre and ocupacion and entidad and municipio):
-            st.error("❌ Completa los datos personales.")
-        elif n3 != 4 or n2 != 5 or n1 != 4:
-            st.error("❌ Distribución incorrecta:  Asegúrate de cumplir los límites exactos (4 veces 1 | 5 veces 2 | 4 veces 3)")
+    if not (nombre and ocupacion and entidad and municipio):
+        st.error("❌ Completa los datos personales.")
+    elif n3 != 4 or n2 != 5 or n1 != 4:
+        st.error("❌ Distribución incorrecta:  Asegúrate de cumplir los límites exactos (4 veces 1 | 5 veces 2 | 4 veces 3)")
+    elif not (quebradas and quebradas.strip()):  # <-- NUEVO: obligatoria
+        st.error("❌ Indica las quebradas y sectores con inundaciones periódicas.")
+    else:
+        info = {
+            "nombre": nombre,
+            "ocupacion": ocupacion,
+            "entidad": entidad,
+            "municipio": municipio,
+            "quebradas_inundaciones": quebradas.strip()  # <-- NUEVO: guardar
+        }
+        for (var, code, _, _), val in zip(variables, respuestas):
+            info[code] = val
+        existentes = supabase.table("respuestas")\
+            .select("nombre").eq("nombre", nombre)\
+            .eq("ocupacion", ocupacion)\
+            .eq("entidad", entidad)\
+            .eq("municipio", municipio)\
+            .execute().data
+        if existentes:
+            st.error("Ya has enviado el formulario anteriormente. Solo se permite un registro por persona.")
         else:
-            info = { "nombre": nombre, "ocupacion": ocupacion,
-                     "entidad": entidad, "municipio": municipio }
-            for (var, code, _, _), val in zip(variables, respuestas):
-                info[code] = val
-            existentes = supabase.table("respuestas")\
-                .select("nombre").eq("nombre", nombre)\
-                .eq("ocupacion", ocupacion)\
-                .eq("entidad", entidad)\
-                .eq("municipio", municipio)\
-                .execute().data
-            if existentes:
-                st.error("Ya has enviado el formulario anteriormente. Solo se permite un registro por persona.")
-            else:
-                supabase.table("respuestas").insert(info).execute()
-                st.success("✅ ¡Formulario enviado exitosamente! Tus respuestas se guardaron correctamente.")
+            supabase.table("respuestas").insert(info).execute()
+            st.success("✅ ¡Formulario enviado exitosamente! Tus respuestas se guardaron correctamente.")
+
 
         st.write("## Registros existentes")
         for fila in supabase.table("respuestas").select("*").execute().data or []:
