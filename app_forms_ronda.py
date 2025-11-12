@@ -17,7 +17,7 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 # --- Opcional: tu procesamiento de logos ---
 import mejorar_imagenes as mi_funcion_1
 img_logos = mi_funcion_1.process_image(
-    "Logos.png", scale_factor=1.5, contrast=1.3, brightness=1.2, color=1.4, sharpness=2.0
+    "Logos_ronda.png", scale_factor=1.5, contrast=1.3, brightness=1.2, color=1.4, sharpness=2.0
 )
 
 # 3) Estructura del nuevo formulario (grupos y preguntas abiertas)
