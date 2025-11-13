@@ -56,10 +56,10 @@ SECCIONES = [
 ]
 
 def get_respuestas():
-    return supabase.table("respuestas").select("*").execute().data
+    return supabase.table("respuestas2").select("*").execute().data
 
 def add_respuesta(info: dict):
-    return supabase.table("respuestas").insert(info).execute()
+    return supabase.table("respuestas2").insert(info).execute()
 
 def main():
     # Encabezado
@@ -112,7 +112,7 @@ def main():
 
         # Evita duplicados por persona (además del UNIQUE en SQL)
         ya = (
-            supabase.table("respuestas")
+            supabase.table("respuestas2")
             .select("id")
             .eq("nombre", info["nombre"])
             .eq("ocupacion", info["ocupacion"])
