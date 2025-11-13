@@ -29,10 +29,10 @@ SECCIONES = [
             ("🧩 ¿Cómo se clasifican/agrupan los servicios ecosistémicos?", "q2_clasificacion_se"),
             ("🔎 ¿Cuáles servicios ecosistémicos identifica en la ronda hídrica del río Medellín?", "q3_servicios_identificados"),
             ("📍 Si identifica algún servicio ecosistémico, podria indicar ¿en qué sitio o sector se puede acceder a ese servicio?", "q4_ubicacion_servicios"),
-            ("👥 ¿Reconoce beneficiarios o segmentos poblacionales para esos servicios?", "q5_beneficiarios"),
+            ("👥 ¿Reconoce beneficiarios o segmentos poblacionales que acceden a dichos servicios?", "q5_beneficiarios"),
             ("📈 ¿Considera relevante establecer estrategias, programas, proyectos e intervenciones para para la conservación, potenciación y ampliación de dichos servicios ecosistémicos?", "q6_relevancia_estrategias"),
-            ("📚 ¿Que estrategias, programas, proyectos e intervenciones conoce que existan en los distintos ejercicios de planificación municipal y regional  para la conservación, potenciación y ampliación de dichos servicios ecosistémicos?", "q7_conoce_instrumentos"),
-            ("💡 ¿Que nuevas estrategias, programas, proyectos e intervenciones sugiere que se deban adoptar para la conservación, potenciación y ampliación de dichos servicios ecosistémicos?", "q8_nuevas_estrategias"),
+            ("📚 ¿Qué estrategias, programas, proyectos e intervenciones conoce que existan en los distintos ejercicios de planificación municipal y regional para la conservación, potenciación y ampliación de dichos servicios ecosistémicos?", "q7_conoce_instrumentos"),
+            ("💡 ¿Qué nuevas estrategias, programas, proyectos e intervenciones sugiere que se deban adoptar para la conservación, potenciación y ampliación de dichos servicios ecosistémicos?", "q8_nuevas_estrategias"),
         ],
     },
     {
@@ -48,9 +48,9 @@ SECCIONES = [
     {
         "titulo": "Posibles medidas de manejo para áreas con características similares",
         "preguntas": [
-            ("🛠️ ¿Que estrategias de manejo (conservación, restauración y aprovechamiento sostenible) se podrian considerar para áreas con caracteristicas similares?", "q14_estrategias_manejo"),
-            ("🧭 ¿Que programas y proyectos se podrian asociar a las estrategias de manejo anteriormente sugeridas para áreas con caracteristicas similares?", "q15_programas_proyectos"),
-            ("✅ ¿Que mecanismos de evaluación y seguimiento sugiere para las estrategias, programas y proyectos sugeridos para el manejo de áreas con caracteristicas similares?", "q16_evaluacion_seguimiento"),
+            ("🛠️ ¿Qué estrategias de manejo (conservación, restauración y aprovechamiento sostenible) se podrian considerar para áreas con caracteristicas similares?", "q14_estrategias_manejo"),
+            ("🧭 ¿Qué programas y proyectos se podrian asociar a las estrategias de manejo anteriormente sugeridas para áreas con caracteristicas similares?", "q15_programas_proyectos"),
+            ("✅ ¿Qué mecanismos de evaluación y seguimiento sugiere para las estrategias, programas y proyectos sugeridos para el manejo de áreas con caracteristicas similares?", "q16_evaluacion_seguimiento"),
         ],
     },
 ]
@@ -64,9 +64,9 @@ def add_respuesta(info: dict):
 def main():
     # Encabezado
     st.image(img_logos, use_container_width=True)
-    st.title("Acotamiento de la Ronda Hídrica del rio Medellín-Aburra en Jurisdicción del Area Metropolitana del Valle de Aburra-AMVA")
+    st.title("Acotamiento de la Ronda Hídrica del río Medellín-Aburrá en Jurisdicción del Área Metropolitana del Valle de Aburrá-AMVA")
     st.markdown(
-        "El presente instrumento constituye un ejemplo de prueba para la participación de actores interesados en el ejercicio de definición y establecimiento de estrategia de manejo de la ronda hídrica del rio Medellín."
+        "El presente instrumento constituye un ejemplo de prueba para la participación de actores interesados en el ejercicio de definición y establecimiento de estrategias de manejo de la ronda hídrica del río Medellín."
         "Desde el equipo social, agradecemos su participación ayudando a responder los siguientes interrogantes, para la elaboración conjunta de las medidas de manejo:"
     )
 
