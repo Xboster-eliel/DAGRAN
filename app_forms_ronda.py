@@ -80,24 +80,42 @@ def main():
 
         st.markdown("---")
 
-        # Render de secciones y preguntas
-        respuestas = {}
-        for seccion in SECCIONES:
-            st.markdown(f"### {seccion['titulo']}")
-            for label, key in seccion["preguntas"]:
-                respuestas[key] = st.text_area(
-                    label,
-                    key=key,
-                    placeholder="Escriba aquí...",
-                    height=120
-                )
-            st.markdown("---")
+        st.subheader("🧭 Zona Sur de la ronda hídrica")
+        q1 = st.text_area(
+            "1️⃣ ¿Cuáles podrían ser las estrategias para el manejo, dadas las condiciones socioambientales de la ronda en la Zona Sur?*",
+            key="q1_estrategias_zona_sur",
+            placeholder="Describa aquí las estrategias de manejo que considere pertinentes...",
+            height=160,  # st.text_area permite este tipo de configuración :contentReference[oaicite:2]{index=2}
+        )
+
+        q2 = st.text_area(
+            "2️⃣ ¿Cuál de las estrategias sería prioritaria en el corto plazo (3 años)?*",
+            key="q2_estrategia_prioritaria_zona_sur",
+            placeholder="Indique la estrategia prioritaria y explique por qué debería ejecutarse primero...",
+            height=160,
+        )
 
         submit = st.form_submit_button("Enviar respuestas")
 
+        # # Render de secciones y preguntas
+        # respuestas = {}
+        # for seccion in SECCIONES:
+        #     st.markdown(f"### {seccion['titulo']}")
+        #     for label, key in seccion["preguntas"]:
+        #         respuestas[key] = st.text_area(
+        #             label,
+        #             key=key,
+        #             placeholder="Escriba aquí...",
+        #             height=120
+        #         )
+        #     st.markdown("---")
+
+        # submit = st.form_submit_button("Enviar respuestas")
+
     # Validación e inserción
     if submit:
-        obligatorios = [nombre, ocupacion, entidad, municipio] + list(respuestas.values())
+        # obligatorios = [nombre, ocupacion, entidad, municipio] + list(respuestas.values())
+        obligatorios = [nombre, ocupacion, entidad, municipio, q1, q2]
         if any((x is None) or (isinstance(x, str) and not x.strip()) for x in obligatorios):
             st.error("Complete todos los campos obligatorios.")
             return
@@ -107,7 +125,9 @@ def main():
             "ocupacion": ocupacion.strip(),
             "entidad": entidad.strip(),
             "municipio": municipio.strip(),
-            **{k: v.strip() for k, v in respuestas.items()},
+            # **{k: v.strip() for k, v in respuestas.items()},
+            "q1_estrategias_zona_sur": q1.strip(),
+            "q2_estrategia_prioritaria_zona_sur": q2.strip(),
         }
 
         # Evita duplicados por persona (además del UNIQUE en SQL)
