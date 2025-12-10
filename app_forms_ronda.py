@@ -80,9 +80,9 @@ def main():
 
         st.markdown("---")
 
-        st.subheader("🧭 Zona Sur de la ronda hídrica")
+        st.subheader("🧭 Zona Norte de la ronda hídrica")
         q1 = st.text_area(
-            "1️⃣ ¿Cuáles podrían ser las estrategias para el manejo, dadas las condiciones socioambientales de la ronda en la Zona Sur?*",
+            "1️⃣ ¿Cuáles podrían ser las estrategias para el manejo, dadas las condiciones socioambientales de la ronda en la Zona Norte?*",
             key="q1_estrategias_zona_sur",
             placeholder="Describa aquí las estrategias de manejo que considere pertinentes...",
             height=160,  # st.text_area permite este tipo de configuración :contentReference[oaicite:2]{index=2}
