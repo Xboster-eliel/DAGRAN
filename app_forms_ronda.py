@@ -66,8 +66,8 @@ def main():
     st.image(img_logos, use_container_width=True)
     st.title("Acotamiento de la Ronda Hídrica del río Medellín-Aburrá en Jurisdicción del Área Metropolitana del Valle de Aburrá-AMVA")
     st.markdown(
-        "El presente instrumento constituye un ejemplo de prueba para la participación de actores interesados en el ejercicio de definición y establecimiento de estrategias de manejo de la ronda hídrica del río Medellín."
-        "Desde el equipo social, agradecemos su participación ayudando a responder los siguientes interrogantes, para la elaboración conjunta de las medidas de manejo:"
+        "El presente instrumento está orientado a facilitar la participación simultánea de actores interesados en el ejercicio de definición y establecimiento de estrategias de manejo de la ronda hídrica del río Medellín."
+        " Desde el equipo social, agradecemos su participación ayudando a responder los siguientes interrogantes para la elaboración conjunta de las medidas de manejo:"
     )
 
     # Formulario
@@ -89,7 +89,7 @@ def main():
         )
 
         q2 = st.text_area(
-            "2️⃣ ¿Cuál de las estrategias sería prioritaria en el corto plazo (3 años)?*",
+            "2️⃣ ¿Cuáles de las estrategias serían prioritarias en el corto plazo (3 años)?*",
             key="q2_estrategia_prioritaria_zona_sur",
             placeholder="Indique la estrategia prioritaria y explique por qué debería ejecutarse primero...",
             height=160,
