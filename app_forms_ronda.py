@@ -87,10 +87,10 @@ def main():
     
         st.markdown("---")
     
-        st.subheader("🧭 Zona Norte de la ronda hídrica")
+        st.subheader("🧭 Zona Centro de la ronda hídrica")
     
         q1 = st.text_area(
-            "1️⃣ ¿Cuáles podrían ser las estrategias para el manejo, dadas las condiciones socioambientales de la ronda en la Zona Norte?*",
+            "1️⃣ ¿Cuáles podrían ser las estrategias para el manejo de la Ronda Hídrica, dadas sus condiciones socioambientales en la Zona Centro?*",
             key="q1_estrategias_zona_norte",
             placeholder="Describa aquí las estrategias de manejo que considere pertinentes...",
             height=160,
