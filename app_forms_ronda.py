@@ -56,10 +56,10 @@ SECCIONES = [
 ]
 
 def get_respuestas():
-    return supabase.table("respuestas2").select("*").execute().data
+    return supabase.table("tabla3").select("*").execute().data
 
 def add_respuesta(info: dict):
-    return supabase.table("respuestas2").insert(info).execute()
+    return supabase.table("tabla3").insert(info).execute()
 
 def main():
     # Encabezado
@@ -72,29 +72,51 @@ def main():
 
     # Formulario
     with st.form("form_abierto"):
-        st.subheader("👤 Datos del participante")
-        nombre = st.text_input("Nombre completo*")
-        ocupacion = st.text_input("Ocupación*")
-        entidad = st.text_input("Entidad u organización*")
-        municipio = st.text_input("Municipio de residencia o trabajo*")
-
+        st.subheader("👤 Datos de los participantes")
+        participantes = st.text_area(
+            "Participantes*",
+            placeholder=(
+                "Ejemplo:\n"
+                "Juan Pérez - Ingeniero civil - Alcaldía de Bello; "
+                "Ana Gómez - Bióloga - AMVA; "
+                "Carlos Ruiz - Líder comunitario - JAC"
+            ),
+            height=140,
+            key="participantes"
+        )
+    
         st.markdown("---")
-
+    
         st.subheader("🧭 Zona Norte de la ronda hídrica")
+    
         q1 = st.text_area(
             "1️⃣ ¿Cuáles podrían ser las estrategias para el manejo, dadas las condiciones socioambientales de la ronda en la Zona Norte?*",
-            key="q1_estrategias_zona_sur",
+            key="q1_estrategias_zona_norte",
             placeholder="Describa aquí las estrategias de manejo que considere pertinentes...",
-            height=160,  # st.text_area permite este tipo de configuración :contentReference[oaicite:2]{index=2}
+            height=160,
         )
-
+    
         q2 = st.text_area(
-            "2️⃣ ¿Cuáles de las estrategias serían prioritarias en el corto plazo (3 años)?*",
-            key="q2_estrategia_prioritaria_zona_sur",
+            "2️⃣ ¿Cuáles de las estrategias serían prioritarias en el corto plazo (4 años)?*",
+            key="q2_prioridad_corto_plazo_zona_norte",
             placeholder="Indique la estrategia prioritaria y explique por qué debería ejecutarse primero...",
             height=160,
         )
-
+    
+        q3 = st.text_area(
+            "3️⃣ ¿Cuáles de las estrategias serían prioritarias en el mediano plazo (8 años)?*",
+            key="q3_prioridad_mediano_plazo_zona_norte",
+            placeholder="Indique la estrategia prioritaria y explique por qué debería ejecutarse en ese horizonte...",
+            height=160,
+        )
+    
+        q4 = st.text_area(
+            "4️⃣ ¿Cuáles de las estrategias serían prioritarias en el largo plazo (12 años)?*",
+            key="q4_prioridad_largo_plazo_zona_norte",
+            placeholder="Indique la estrategia prioritaria y explique por qué debería ejecutarse en ese horizonte...",
+            height=160,
+        )
+    
         submit = st.form_submit_button("Enviar respuestas")
 
         # # Render de secciones y preguntas
@@ -114,39 +136,22 @@ def main():
 
     # Validación e inserción
     if submit:
-        # obligatorios = [nombre, ocupacion, entidad, municipio] + list(respuestas.values())
-        obligatorios = [nombre, ocupacion, entidad, municipio, q1, q2]
+        obligatorios = [participantes, q1, q2, q3, q4]
+    
         if any((x is None) or (isinstance(x, str) and not x.strip()) for x in obligatorios):
             st.error("Complete todos los campos obligatorios.")
             return
 
         info = {
-            "nombre": nombre.strip(),
-            "ocupacion": ocupacion.strip(),
-            "entidad": entidad.strip(),
-            "municipio": municipio.strip(),
-            # **{k: v.strip() for k, v in respuestas.items()},
-            "q1_estrategias_zona_sur": q1.strip(),
-            "q2_estrategia_prioritaria_zona_sur": q2.strip(),
+            "participantes": participantes.strip(),
+            "q1_estrategias_zona_norte": q1.strip(),
+            "q2_prioridad_corto_plazo_zona_norte": q2.strip(),
+            "q3_prioridad_mediano_plazo_zona_norte": q3.strip(),
+            "q4_prioridad_largo_plazo_zona_norte": q4.strip(),
         }
 
-        # Evita duplicados por persona (además del UNIQUE en SQL)
-        ya = (
-            supabase.table("respuestas2")
-            .select("id")
-            .eq("nombre", info["nombre"])
-            .eq("ocupacion", info["ocupacion"])
-            .eq("entidad", info["entidad"])
-            .eq("municipio", info["municipio"])
-            .execute()
-        ).data
-
-        if ya:
-            st.error("Ya existe un registro para esta persona.")
-            return
-
         try:
-            add_respuesta(info)  # inserta en Postgres vía Supabase
+            add_respuesta(info)
             st.success("Respuestas guardadas correctamente.")
         except Exception as e:
             st.error(f"No se pudo guardar. Detalle: {e}")
